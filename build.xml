@@ -13,7 +13,7 @@
 
 
  <target name="my-build"
-         depends="clean,lint,phpcs-ci,github_changelog_generator"
+         depends="clean,lint,phpcs-ci,github_changelog_generator,deployer"
          description="Performs small static code analysis" />
 
 
