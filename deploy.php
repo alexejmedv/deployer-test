@@ -14,7 +14,7 @@ set('git_tty', true);
 
 // Shared files/dirs between deploys 
 set('shared_files', []);
-set('shared_dirs', []);
+set('shared_dirs', ['src']);
 
 // Writable dirs by web server 
 set('writable_dirs', []);
@@ -25,7 +25,7 @@ set('writable_dirs', []);
 host('localhost')
     ->user('root')
     ->port(2222)
-    ->set('deploy_path', '/BLAAAAAAA/'); 
+    ->set('deploy_path', '/BLAAAAAAA'); 
     
 
 // Tasks
@@ -43,28 +43,6 @@ task('pwd', function () {
     writeln("Current dir: $result");
 });
 
-
-    
-
-/*
- * Main deploy task
- */
-desc('Deploy your project');
-task('deploy', [
-    'deploy:info',
-    'deploy:prepare',
-    'deploy:lock',
-    'deploy:release',
-    'deploy:update_code',
-    'deploy:shared',
-    'deploy:writable',
-    'deploy:vendors',
-    'deploy:clear_paths',
-    'deploy:symlink',
-    'deploy:unlock',
-    'cleanup',
-    'success'
-]);
 
 
 

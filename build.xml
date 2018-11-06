@@ -5,6 +5,7 @@
 
  <property name="phpcs"                         value="${basedir}/build/tools/phpcs.phar"/>
  <property name="github_changelog_generator"    value="${basedir}/build/tools/github_changelog_generator"/>
+  <property name="deployer"                         value="${basedir}/build/tools/deployer.phar"/>
 
 
 
@@ -99,7 +100,7 @@
 
  <!-- ############################################################## ChangelogGenerator ############################################################## -->
 
- 
+
  <target name="github_changelog_generator"
          unless="github_changelog_generator.done"
          description="Fully automated changelog generation - This gem generates a changelog file based on tags, issues and merged pull requests">
@@ -107,5 +108,18 @@
   </exec>
 
   <property name="github_changelog_generator.done" value="true"/>
+ </target>
+
+  <!-- ############################################################## Deployer ############################################################## -->
+
+
+ <target name="deployer"
+         unless="deployer.done"
+         description="Testing deployer">
+  <exec executable="${deployer}" taskname="deployer">
+   <arg value="test" />
+  </exec>
+
+  <property name="deployer.done" value="true"/>
  </target>
 </project>
