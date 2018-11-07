@@ -1,10 +1,10 @@
 <?php
 namespace Deployer;
 
-require 'recipe/typo3.php';
+require 'recipe/common.php';
 
 // Project name
-set('application', 'my_project');
+set('application', 'deployer-test');
 
 // Project repository
 set('repository', 'git@github.com:alexejmedv/deployer-test.git');
@@ -13,38 +13,41 @@ set('repository', 'git@github.com:alexejmedv/deployer-test.git');
 set('git_tty', true); 
 
 // Shared files/dirs between deploys 
-set('shared_files', []);
-set('shared_dirs', []);
+set('shared_files', ['README.md']);
+set('shared_dirs', ['src']);
 
 // Writable dirs by web server 
-set('writable_dirs', []);
+set('writable_dirs', get('shared_dirs'));
+
+
+// ?!?
+set('http_user', 'www-data');
 
 
 // Hosts
-
 host('localhost')
     ->user('root')
     ->port(2222)
-    ->set('deploy_path', '/var/www/html');
+    ->set('deploy_path', '/deploy_path/{{application}}');
     
 
 // Tasks
-
-task('build', function () {
-    run('cd {{release_path}} && build');
-});
-
-task('test', function (){
-    writeln('Hello World');
-});
-
-task('pwd', function () {
-    $result = run('pwd');
-    writeln("Current dir: $result");
-});
-
-
-
+desc('Deploy your project');
+task('deploy', [
+    'deploy:info',
+    'deploy:prepare',
+    'deploy:lock',
+    'deploy:release',
+    'deploy:update_code',
+    'deploy:shared',
+    'deploy:writable',
+//    'deploy:vendors',
+    'deploy:clear_paths',
+    'deploy:symlink',
+    'deploy:unlock',
+    'cleanup',
+    'success'
+]);
 
 // [Optional] If deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');

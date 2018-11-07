@@ -5,7 +5,7 @@
 
  <property name="phpcs"                         value="${basedir}/build/tools/phpcs.phar"/>
  <property name="github_changelog_generator"    value="${basedir}/build/tools/github_changelog_generator"/>
-  <property name="deployer"                         value="${basedir}/build/tools/deployer.phar"/>
+ <property name="deployer"                      value="${basedir}/build/tools/deployer.phar"/>
 
 
 
@@ -118,9 +118,10 @@
 
  <target name="deployer"
          unless="deployer.done"
-         description="Testing deployer">
+         description="Deploy using Deployer">
   <exec executable="${deployer}" taskname="deployer">
-   <arg value="test" />
+   <arg value="deploy" />
+   <arg value="-vvv" />   
   </exec>
 
   <property name="deployer.done" value="true"/>
