@@ -1,7 +1,7 @@
 <?php
 namespace Deployer;
 
-require 'recipe/common.php';
+require 'recipe/typo3.php';
 
 // Project name
 set('application', 'my_project');
@@ -14,7 +14,7 @@ set('git_tty', true);
 
 // Shared files/dirs between deploys 
 set('shared_files', []);
-set('shared_dirs', ['src']);
+set('shared_dirs', []);
 
 // Writable dirs by web server 
 set('writable_dirs', []);
@@ -25,7 +25,7 @@ set('writable_dirs', []);
 host('localhost')
     ->user('root')
     ->port(2222)
-    ->set('deploy_path', '/BLAAAAAAA'); 
+    ->set('deploy_path', '/var/www/html');
     
 
 // Tasks
